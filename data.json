@@ -1,0 +1,68 @@
+{
+  "yutaiItems": [
+    {
+      "name": "サンプル食品",
+      "code": "1234",
+      "benefit": "1株以上で自社オンラインショップの割引クーポン",
+      "rightMonth": "3月",
+      "requiredFunds": "約1,200円",
+      "checkedAt": "2026-06-01",
+      "officialUrl": "https://example.com/"
+    },
+    {
+      "name": "サンプル交通",
+      "code": "5678",
+      "benefit": "1株以上で株主向け情報誌と抽選優待",
+      "rightMonth": "9月",
+      "requiredFunds": "約2,500円",
+      "checkedAt": "2026-06-01",
+      "officialUrl": "https://example.com/"
+    }
+  ],
+  "ownerHoldings": [
+    {
+      "name": "サンプル小売",
+      "code": "2468",
+      "averageCost": "980円",
+      "currentPrice": "1,050円",
+      "shares": "100株",
+      "benefit": "買い物優待券",
+      "rightMonth": "2月・8月",
+      "memo": "日常利用しやすい店舗を中心に確認。"
+    }
+  ],
+  "fixedCostItems": [
+    {
+      "category": "スマホ",
+      "name": "スマホ料金の見直し",
+      "savingEstimate": "月2,000円〜4,000円",
+      "memo": "使っていない大容量プランや通話オプションを確認。"
+    },
+    {
+      "category": "サブスク",
+      "name": "サブスク整理",
+      "savingEstimate": "月500円〜2,000円",
+      "memo": "年数回しか使わないサービスを一度停止。"
+    }
+  ],
+  "dealItems": [
+    {
+      "name": "サンプル日用品セット",
+      "price": "1,980円",
+      "referencePrice": "2,780円",
+      "unitPrice": "1個あたり198円",
+      "status": "販売中",
+      "checkedAt": "2026-06-01",
+      "isAd": true
+    },
+    {
+      "name": "サンプル訳あり食品",
+      "price": "受付終了",
+      "referencePrice": "3,200円",
+      "unitPrice": "-",
+      "status": "受付終了",
+      "checkedAt": "2026-05-28",
+      "isAd": false
+    }
+  ]
+}
