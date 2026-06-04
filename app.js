@@ -126,12 +126,12 @@ function renderPageShell(pageName, controlsHtml, contentHtml) {
 
 function renderYutai() {
   const items = normalizeArray(state.data.yutaiItems);
-  const months = [...new Set(items.map((item) => text(item.rightMonth)).filter(Boolean))].sort(compareMonth);
+  const months = [...new Set(items.map((item) => text(item.recordMonth)).filter(Boolean))].sort(compareMonth);
   const query = state.yutaiQuery.trim().toLowerCase();
   const filteredItems = items.filter((item) => {
-    const matchesQuery = !query || [item.name, item.code, item.benefit, item.rightMonth]
+    const matchesQuery = !query || [item.name, item.code, item.perk, item.recordMonth]
       .some((value) => text(value).toLowerCase().includes(query));
-    const matchesMonth = state.yutaiMonth === 'all' || text(item.rightMonth) === state.yutaiMonth;
+    const matchesMonth = state.yutaiMonth === 'all' || text(item.recordMonth) === state.yutaiMonth;
     return matchesQuery && matchesMonth;
   });
 
@@ -162,11 +162,11 @@ function renderYutaiCard(item) {
         <h2 class="item-title">${escapeHtml(text(item.name))}</h2>
         <span class="item-code">${escapeHtml(text(item.code))}</span>
       </div>
-      <p class="description">${escapeHtml(text(item.benefit))}</p>
+      <p class="description">${escapeHtml(text(item.perk))}</p>
       <div class="meta-grid">
-        ${renderMeta('権利月', item.rightMonth)}
-        ${renderMeta('必要資金', item.requiredFunds)}
-        ${renderMeta('確認日', item.checkedAt)}
+        ${renderMeta('権利月', item.recordMonth)}
+        ${renderMeta('必要資金', formatYen(item.needMoneyYen))}
+        ${renderMeta('確認日', item.lastChecked)}
       </div>
       ${item.officialUrl ? `<a class="official-link" href="${escapeAttribute(item.officialUrl)}" target="_blank" rel="noopener noreferrer">公式リンクを見る</a>` : ''}
     </article>
@@ -189,14 +189,14 @@ function renderHoldingCard(item) {
         <h2 class="item-title">${escapeHtml(text(item.name))}</h2>
         <span class="item-code">${escapeHtml(text(item.code))}</span>
       </div>
-      <p class="description">${escapeHtml(text(item.benefit))}</p>
+      <p class="description">${escapeHtml(text(item.perk))}</p>
       <div class="meta-grid">
-        ${renderMeta('取得単価', item.averageCost)}
-        ${renderMeta('現在値', item.currentPrice)}
-        ${renderMeta('保有株数', item.shares)}
-        ${renderMeta('権利月', item.rightMonth)}
+        ${renderMeta('取得単価', formatYen(item.avgAcquisitionPriceYen))}
+        ${renderMeta('現在値', formatYen(item.currentPriceYen))}
+        ${renderMeta('保有株数', formatShares(item.ownedShares))}
+        ${renderMeta('権利月', item.recordMonth)}
       </div>
-      ${item.memo ? `<p class="description">${escapeHtml(text(item.memo))}</p>` : ''}
+      ${item.memoPublic ? `<p class="description">${escapeHtml(text(item.memoPublic))}</p>` : ''}
     </article>
   `;
 }
@@ -214,14 +214,14 @@ function renderCostCard(item) {
   return `
     <article class="item-card">
       <div class="item-head">
-        <h2 class="item-title">${escapeHtml(text(item.name || item.category))}</h2>
+        <h2 class="item-title">${escapeHtml(text(item.title || item.category))}</h2>
         <span class="item-code">${escapeHtml(text(item.category))}</span>
       </div>
       <div class="saving">
         <span>節約目安</span>
-        <strong>${escapeHtml(text(item.savingEstimate))}</strong>
+        <strong>${escapeHtml(formatMonthlySaving(item.saveMinYen, item.saveMaxYen))}</strong>
       </div>
-      <p class="description">${escapeHtml(text(item.memo || item.description))}</p>
+      <p class="description">${escapeHtml(text(item.description || item.memoPublic))}</p>
     </article>
   `;
 }
@@ -236,26 +236,58 @@ function renderDeals() {
 }
 
 function renderDealCard(item) {
-  const status = text(item.status || item.saleStatus);
-  const isClosed = /終了|完売|停止|sold\s*out/i.test(status);
+  const availability = text(item.availability) || '販売中';
+  const isSoldOut = toBoolean(item.isSoldOut);
 
   return `
     <article class="item-card">
       <div class="item-head">
-        <h2 class="item-title">${escapeHtml(text(item.name))}</h2>
-        <span class="badge ${isClosed ? 'closed' : 'open'}">${escapeHtml(status || '販売中')}</span>
+        <h2 class="item-title">${escapeHtml(text(item.title))}</h2>
+        <span class="badge ${isSoldOut ? 'closed' : 'open'}">${escapeHtml(availability)}</span>
       </div>
       <div>
         ${item.isAd ? '<span class="badge pr">PR</span>' : ''}
       </div>
       <div class="meta-grid">
-        ${renderMeta('価格', item.price)}
-        ${renderMeta('参考価格', item.referencePrice)}
-        ${renderMeta('1個あたり', item.unitPrice)}
-        ${renderMeta('確認日', item.checkedAt)}
+        ${renderMeta('価格', formatYen(item.priceYen))}
+        ${renderMeta('参考価格', formatYen(item.referencePriceYen))}
+        ${renderMeta('1個あたり', formatYen(item.unitPriceYen))}
+        ${renderMeta('販売状態', availability)}
+        ${renderMeta('売り切れ', isSoldOut ? 'はい' : 'いいえ')}
+        ${renderMeta('確認日', item.lastChecked)}
       </div>
     </article>
   `;
+}
+
+function toBoolean(value) {
+  if (typeof value === 'boolean') return value;
+  const valueText = text(value).trim().toLowerCase();
+  return ['true', '1', 'yes', 'はい'].includes(valueText);
+}
+
+function formatYen(value) {
+  if (value === null || value === undefined || value === '') return '';
+  const valueText = text(value);
+  const number = Number(valueText.replace(/,/g, ''));
+  if (Number.isFinite(number)) return `${number.toLocaleString('ja-JP')}円`;
+  return valueText;
+}
+
+function formatShares(value) {
+  if (value === null || value === undefined || value === '') return '';
+  const valueText = text(value);
+  const number = Number(valueText.replace(/,/g, ''));
+  if (Number.isFinite(number)) return `${number.toLocaleString('ja-JP')}株`;
+  return valueText;
+}
+
+function formatMonthlySaving(minYen, maxYen) {
+  const min = formatYen(minYen);
+  const max = formatYen(maxYen);
+  if (min && max) return `月${min}〜${max}`;
+  if (min || max) return `月${min || max}`;
+  return '';
 }
 
 function renderMeta(label, value) {
