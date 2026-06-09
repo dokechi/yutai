@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08 18:00:00",
+  "generatedAt": "2026-06-09 10:19:22",
   "version": "gas-json-v1",
   "settings": {
     "site_title": "手取り19万円",
@@ -43,7 +43,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/8698.T/incentive",
       "officialUrl": "https://www.monexgroup.jp/jp/investor/stock/return.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/8698.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "マネックス証券口座に預け入れが条件。条件あり。",
       "memoInternal": "証券会社導線と相性が良い"
     },
@@ -65,7 +65,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/8473.T/incentive",
       "officialUrl": "https://yutai-guide.daiwair.co.jp/stock/detail/8473",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/8473.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "単元未満株も対象との記載あり。",
       "memoInternal": ""
     },
@@ -87,7 +87,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/1518.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/1518.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "外部一覧で1株条件を確認。割引/購入権。",
       "memoInternal": ""
     },
@@ -109,7 +109,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/2001.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/2001.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "外部一覧で1株条件を確認。割引/購入権。",
       "memoInternal": ""
     },
@@ -131,7 +131,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/2168.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/2168.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "外部一覧で1株条件を確認。割引/購入権。",
       "memoInternal": ""
     },
@@ -153,7 +153,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/2337.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/2337.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "抽選（当選者のみ）。応募権として扱う。",
       "memoInternal": ""
     },
@@ -175,7 +175,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/2602.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/2602.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "外部一覧で1株条件を確認。割引/購入権。",
       "memoInternal": ""
     },
@@ -197,7 +197,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/3405.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/3405.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "送付物。概ね確実枠。",
       "memoInternal": ""
     },
@@ -219,7 +219,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/4061.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/4061.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "外部一覧で1株条件を確認。割引/購入権。",
       "memoInternal": ""
     },
@@ -241,7 +241,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/4539.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/4539.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "外部一覧で1株条件を確認。割引/購入権。",
       "memoInternal": ""
     },
@@ -263,7 +263,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/5019.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/5019.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "招待券。概ね確実枠。",
       "memoInternal": ""
     },
@@ -285,7 +285,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/5711.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/5711.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "外部一覧で1株条件を確認。割引/購入権。",
       "memoInternal": ""
     },
@@ -307,7 +307,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/6504.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/6504.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "送付物。概ね確実枠。",
       "memoInternal": ""
     },
@@ -329,7 +329,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/6971.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/6971.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "外部一覧で1株条件を確認。割引/購入権。",
       "memoInternal": ""
     },
@@ -351,7 +351,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/7638.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/7638.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "外部一覧で1株条件を確認。割引/購入権。",
       "memoInternal": ""
     },
@@ -373,7 +373,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/7752.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/7752.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "外部一覧で1株条件を確認。割引/購入権。",
       "memoInternal": ""
     },
@@ -395,7 +395,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/7911.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/7911.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "施設利用・入館券。",
       "memoInternal": ""
     },
@@ -417,7 +417,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/7912.T/incentive",
       "officialUrl": "https://www.kabuyutai.com/special/miman_list.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/7912.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "送付物。概ね確実枠。",
       "memoInternal": ""
     },
@@ -439,7 +439,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/9409.T/incentive",
       "officialUrl": "https://www.tv-asahihd.co.jp/yuutai/",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/9409.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "案内型。購入は任意。",
       "memoInternal": ""
     },
@@ -461,7 +461,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/2590.T/incentive",
       "officialUrl": "https://holdings.dydo.co.jp/ir/stock/dividend.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/2590.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "現物優待は別条件。優待価格販売として扱う。",
       "memoInternal": ""
     },
@@ -483,7 +483,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/7979.T/incentive",
       "officialUrl": "https://www.shofu.co.jp/ir/contents/hp1341/index.php?No=912",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/7979.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "全ての株主対象の優待価格販売。",
       "memoInternal": ""
     },
@@ -505,7 +505,7 @@
       "sourceUrl": "https://finance.yahoo.co.jp/quote/8043.T/incentive",
       "officialUrl": "https://www.starzen.co.jp/ir/investor_info/yutai.html",
       "yahooFinanceUrl": "https://finance.yahoo.co.jp/quote/8043.T",
-      "lastChecked": "2026-04-29",
+      "lastChecked": "2026-06-09",
       "memoPublic": "全株主向けの案内型。",
       "memoInternal": ""
     }
@@ -716,7 +716,7 @@
       "category": "保険",
       "title": "管理人が入っている保険メモ",
       "saveMinYen": 0,
-      "saveMaxYen": 0,
+      "saveMaxYen": 1000,
       "description": "管理人はチューリッヒ、メディケア、FWD、ひまわり、メットライフに加入しています。すべて日額1,000円、入院一時金20万円の内容でそろえています。これが最適とは限らないので、もっと良い組み方があれば見直したいです。",
       "steps": [
         "加入中の保険会社と保障内容を書き出す",
@@ -743,7 +743,7 @@
       "title": "1株優待を買うなら",
       "text": "1株優待は、単元未満株に対応した証券会社で買えるかが重要です。",
       "buttonText": "単元未満株対応の証券会社を見る",
-      "targetUrl": "",
+      "targetUrl": "https://dokechi.github.io/yutai/#yutai",
       "isAd": true,
       "memoInternal": "1株優待から証券口座比較へ"
     },
@@ -757,7 +757,7 @@
       "title": "NISAで優待株を持つなら",
       "text": "少額で優待株を始めるなら、NISA口座と手数料も確認しておきたいところです。",
       "buttonText": "初心者向け証券口座を比較する",
-      "targetUrl": "",
+      "targetUrl": "https://dokechi.github.io/yutai/#yutai",
       "isAd": true,
       "memoInternal": "NISA導線"
     },
@@ -771,7 +771,7 @@
       "title": "少額で優待を始めるなら",
       "text": "10万円以下の優待は、初心者が試しやすい入口です。",
       "buttonText": "10万円以下で使いやすい証券会社を見る",
-      "targetUrl": "",
+      "targetUrl": "https://dokechi.github.io/yutai/#yutai",
       "isAd": true,
       "memoInternal": "少額導線"
     },
@@ -785,7 +785,7 @@
       "title": "権利月が近い人へ",
       "text": "権利付き最終日までに買付が必要です。口座開設には日数がかかる場合があります。",
       "buttonText": "今から準備する証券口座を見る",
-      "targetUrl": "",
+      "targetUrl": "https://dokechi.github.io/yutai/#yutai",
       "isAd": true,
       "memoInternal": "口座開設の日数導線"
     },
@@ -799,7 +799,7 @@
       "title": "優待資金を作るなら",
       "text": "固定費を下げると、優待株の原資を作りやすくなります。",
       "buttonText": "携帯料金・保険を見直す",
-      "targetUrl": "",
+      "targetUrl": "https://dokechi.github.io/yutai/#yutai",
       "isAd": true,
       "memoInternal": "固定費導線"
     }
@@ -839,7 +839,7 @@
   "summary": {
     "siteTitle": "手取り19万円",
     "siteDescription": "管理人のメモ",
-    "lastUpdated": "2026-06-08 18:00:00",
+    "lastUpdated": "2026-06-09 10:19:22",
     "publicYutaiCount": 22,
     "oneShareCount": 22,
     "holdingCount": 9,
@@ -847,6 +847,6 @@
     "dealCount": 0,
     "activeDealCount": 0,
     "fixedCostSaveMinYen": 2000,
-    "fixedCostSaveMaxYen": 5000
+    "fixedCostSaveMaxYen": 6000
   }
 }
