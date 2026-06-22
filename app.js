@@ -5,8 +5,8 @@ const state = {
   error: null,
   yutaiQuery: '',
   yutaiMonth: 'all',
-  yutaiHideOld: false,
-  yutaiOfficialOnly: false,
+  yutaiHideOld: true,
+  yutaiOfficialOnly: true,
   holdingsSort: 'month',
   holdingsOfficialOnly: false,
   holdingsHideOld: true,
@@ -22,23 +22,28 @@ const state = {
 const pages = {
   home: {
     title: '優待と暮らしのメモ',
-    description: '一覧を並べず、4つの入口から目的の情報へ進みます。',
+    description: 'いい話だけじゃなく、もらう条件も見ます。',
     accent: 'blue',
   },
   yutai: {
     title: '1株優待',
-    description: '少額で確認しやすい優待を、検索と権利月で絞り込みます。',
+    description: '1株でも対象になるか、もらう条件を見ます。',
     accent: 'blue',
   },
-  holdings: {
-    title: '保有株',
-    description: '損益は表示せず、取得単価・現在値・優待内容だけを確認します。',
+  costs: {
+    title: '毎月の支払い',
+    description: 'スマホ代・保険・サブスクを見直します。',
     accent: 'green',
   },
-  costs: {
-    title: '固定費',
-    description: 'スマホ、保険、電気、サブスクなどの見直し候補を整理します。',
+  holdings: {
+    title: '持ってる株メモ',
+    description: '実際に見ている株を、条件つきでメモしています。',
     accent: 'orange',
+  },
+  concept: {
+    title: 'このサイトについて',
+    description: 'なんでこのメモを公開してるの？',
+    accent: 'red',
   },
   deals: {
     title: '安く買う',
@@ -89,6 +94,7 @@ function render() {
   if (pageName === 'yutai') renderYutai();
   if (pageName === 'holdings') renderHoldings();
   if (pageName === 'costs') renderCosts();
+  if (pageName === 'concept') renderConcept();
   if (pageName === 'deals') renderDeals();
 }
 
@@ -101,14 +107,13 @@ function renderHome() {
   app.innerHTML = `
     <section class="hero page-accent-blue">
       ${renderUpdated()}
-      <p class="eyebrow">必要な入口だけ選ぶ</p>
-      <h1>優待・保有株・固定費・安く買うを、迷わず確認。</h1>
-      <p class="lead">一覧を並べず、4つの入口から目的の情報へ進みます。</p>
+      <h1>知らないと損する。<br>でも、全部調べるのは面倒。</h1>
+      <p class="lead">1株優待、スマホ代、保険、サブスク。<br>いい話だけじゃなく、もらう条件も見ます。</p>
       <nav class="choice-grid" aria-label="カテゴリ選択">
-        ${renderChoiceCard('01', '1株優待', '1株だけで取れる優待を見る', 'yutai', 'blue')}
-        ${renderChoiceCard('02', '保有株', '持ってる株の優待・権利月を見る', 'holdings', 'green')}
-        ${renderChoiceCard('03', '固定費', '毎月の支払いを減らす候補を見る', 'costs', 'orange')}
-        ${renderChoiceCard('04', '安く買う', '今安いもの・販売状況を見る', 'deals', 'red')}
+        ${renderChoiceCard('01', '1株優待', '1株でも対象になるか見る', 'yutai', 'blue')}
+        ${renderChoiceCard('02', '毎月の支払い', 'スマホ代・保険・サブスクを見る', 'costs', 'green')}
+        ${renderChoiceCard('03', '持ってる株メモ', '実際に見ている株を見る', 'holdings', 'orange')}
+        ${renderChoiceCard('04', 'このサイトについて', 'なんで公開してるの？', 'concept', 'red')}
       </nav>
     </section>
   `;
@@ -184,8 +189,8 @@ function renderYutai() {
     'yutai',
     `<form class="controls yutai-controls" id="yutai-filter">
       <label class="search-field"><span class="icon search-icon" aria-hidden="true"></span><input type="search" name="query" value="${escapeAttribute(state.yutaiQuery)}" placeholder="銘柄名・コード・優待内容で検索" aria-label="1株優待を検索"></label>
-      <label class="select-field"><span class="icon calendar-icon" aria-hidden="true"></span><select name="month" aria-label="権利月で絞り込み">
-        <option value="all">すべての権利月</option>
+      <label class="select-field"><span class="icon calendar-icon" aria-hidden="true"></span><select name="month" aria-label="いつまでに持つ？で絞り込み">
+        <option value="all">すべての月</option>
         ${months.map((month) => `<option value="${escapeAttribute(month)}" ${month === state.yutaiMonth ? 'selected' : ''}>${escapeHtml(month)}</option>`).join('')}
       </select><span class="chevron" aria-hidden="true"></span></label>
       <div class="toggle-panel">
@@ -218,13 +223,13 @@ function renderYutaiCard(item) {
       </div>
       <p class="description">${escapeHtml(text(item.perk))}</p>
       <div class="meta-grid four">
-        ${renderMeta('権利月', item.recordMonth, 'blue')}
-        ${renderMeta('必要資金', formatYen(item.needMoneyYen), 'blue')}
-        ${renderMeta('確認日', item.lastChecked, 'blue')}
-        ${renderMeta('公式', officialStatus, 'blue')}
+        ${renderMeta('いつまでに持つ？', item.recordMonth, 'blue')}
+        ${renderMeta('いくらいる？', formatYen(item.needMoneyYen), 'blue')}
+        ${renderMeta('確認した日', item.lastChecked, 'blue')}
+        ${renderMeta('会社ページ', officialStatus, 'blue')}
       </div>
       <div class="card-foot">
-        ${item.officialUrl ? `<a class="official-link" href="${escapeAttribute(item.officialUrl)}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> 公式リンクを見る</a>` : '<span></span>'}
+        ${item.officialUrl ? `<a class="official-link" href="${escapeAttribute(item.officialUrl)}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> 会社ページを見る</a>` : '<span></span>'}
         ${item.memoPublic ? `<p class="memo">${escapeHtml(text(item.memoPublic))}</p>` : ''}
       </div>
     </article>
@@ -245,11 +250,11 @@ function renderHoldings() {
   renderPageShell(
     'holdings',
     `<form class="controls row-controls" id="holdings-filter">
-      <label class="pill-control"><span class="icon calendar-icon" aria-hidden="true"></span><select name="sort"><option value="month" ${state.holdingsSort === 'month' ? 'selected' : ''}>権利月順</option><option value="code" ${state.holdingsSort === 'code' ? 'selected' : ''}>コード順</option></select><span class="chevron" aria-hidden="true"></span></label>
+      <label class="pill-control"><span class="icon calendar-icon" aria-hidden="true"></span><select name="sort"><option value="month" ${state.holdingsSort === 'month' ? 'selected' : ''}>月順</option><option value="code" ${state.holdingsSort === 'code' ? 'selected' : ''}>コード順</option></select><span class="chevron" aria-hidden="true"></span></label>
       <label class="pill-control"><span class="shield-icon" aria-hidden="true">♢</span><input type="checkbox" name="officialOnly" ${state.holdingsOfficialOnly ? 'checked' : ''}>公式確認済だけ</label>
       <label class="inline-switch">古い情報を隠す${renderSwitchOnly('hideOld', state.holdingsHideOld)}</label>
     </form>`,
-    `<div class="card-list">${items.length ? items.map(renderHoldingCard).join('') : renderEmpty('保有株データがありません。')}</div>`,
+    `<div class="card-list">${items.length ? items.map(renderHoldingCard).join('') : renderEmpty('持ってる株メモがありません。')}</div>`,
   );
 
   document.querySelector('#holdings-filter').addEventListener('input', (event) => {
@@ -262,24 +267,23 @@ function renderHoldings() {
 }
 
 function renderHoldingCard(item) {
-  const hasPerk = Boolean(text(item.perk).trim() || text(item.recordMonth).trim());
   return `
     <article class="item-card holding-card">
       <div class="holding-head">
-        <span class="code-badge green">${escapeHtml(text(item.code))}</span>
+        <span class="code-badge orange">${escapeHtml(text(item.code))}</span>
         <div class="holding-title-block">
           <h2 class="item-title">${escapeHtml(text(item.name))}</h2>
           ${item.perk ? `<p class="perk-title">${escapeHtml(text(item.perk))}</p>` : '<p class="perk-title">優待内容を確認</p>'}
         </div>
-        ${hasPerk ? '<span class="status-badge green">優待あり</span>' : ''}
+
       </div>
-      <div class="meta-grid four soft-green">
+      <div class="meta-grid four soft-orange">
         ${renderMeta('取得単価', formatYen(item.avgAcquisitionPriceYen))}
         ${renderMeta('現在値', formatYen(item.currentPriceYen))}
         ${renderMeta('保有株数', formatShares(item.ownedShares))}
-        ${renderMeta('権利月', item.recordMonth || '-')}
+        ${renderMeta('いつまでに持つ？', item.recordMonth || '-')}
       </div>
-      ${item.memoPublic ? `<p class="description">${escapeHtml(text(item.memoPublic))}</p>` : '<p class="description">日常利用しやすい優待を中心に確認。</p>'}
+      ${item.memoPublic ? `<p class="description">${escapeHtml(text(item.memoPublic))}</p>` : '<p class="description">見ている内容を短くメモ。</p>'}
     </article>
   `;
 }
@@ -289,11 +293,11 @@ function renderCosts() {
   renderPageShell(
     'costs',
     `<form class="controls row-controls cost-controls" id="costs-filter">
-      <label class="pill-control"><span aria-hidden="true">⇅</span><select name="sort"><option value="saving">大きい節約順</option></select><span class="chevron" aria-hidden="true"></span></label>
+      <label class="pill-control"><span aria-hidden="true">⇅</span><select name="sort"><option value="saving">いくら浮く？順</option></select><span class="chevron" aria-hidden="true"></span></label>
       <label class="pill-control"><span aria-hidden="true">◌</span><input type="checkbox" name="hideDone" ${state.costsHideDone ? 'checked' : ''}>済んだものを隠す</label>
       <label class="pill-control"><span aria-hidden="true">▣</span><select name="payment"><option value="monthly">毎月の支払い</option></select><span class="chevron" aria-hidden="true"></span></label>
     </form>`,
-    `<div class="card-list">${items.length ? items.map(renderCostCard).join('') : renderEmpty('固定費データがありません。')}</div>`,
+    `<div class="card-list">${items.length ? items.map(renderCostCard).join('') : renderEmpty('毎月の支払いデータがありません。')}</div>`,
     { outlineBack: true, backIcon: true },
   );
 
@@ -312,16 +316,32 @@ function renderCostCard(item, index) {
         <span class="category-badge">${escapeHtml(text(item.category))}</span>
       </div>
       <div class="saving-block">
-        <span>節約目安</span>
+        <span>いくら浮く？</span>
         <strong>${escapeHtml(formatMonthlySaving(item.saveMinYen, item.saveMaxYen))}</strong>
       </div>
       <div class="task-lines">
         <div><span>見るところ</span><p>${escapeHtml(steps[0] || text(item.description || item.memoPublic))}</p></div>
         <div><span>次にやること</span><p>${escapeHtml(steps[1] || steps[0] || '今の請求額を確認する')}</p></div>
       </div>
-      ${item.memoPublic ? `<p class="hint"><span aria-hidden="true">♧</span>${escapeHtml(text(item.memoPublic))}</p>` : ''}
+      ${toBoolean(item.isAd) ? '<p class="ad-note">広告リンクを含みます</p>' : ''}
+      ${item.targetUrl ? `<a class="official-link cost-link" href="${escapeAttribute(item.targetUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(text(item.ctaLabel) || '会社ページを見る')}</a>` : ''}
+      ${item.memoPublic ? `<p class="hint">${escapeHtml(text(item.memoPublic).replace('※広告リンクを含みます。', '').trim())}</p>` : ''}
     </article>
   `;
+}
+
+
+function renderConcept() {
+  renderPageShell(
+    'concept',
+    '',
+    `<article class="item-card concept-card">
+      <p>得する情報を見つけるのが好きです。<br>でも、全部を自分で調べるのは大変です。</p>
+      <p>だからこのサイトでは、1株優待、スマホ代、保険、サブスクなど、生活に関係あるものをメモしています。</p>
+      <p>いい話だけではなく、いくら必要か、いつまでに持つのか、もらう条件はあるのか。そこも一緒に見ます。</p>
+      <p>買えとは言いません。<br>自分で見て決めるためのメモです。</p>
+    </article>`,
+  );
 }
 
 function renderDeals() {

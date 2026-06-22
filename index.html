@@ -4,18 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>優待と暮らしのメモ</title>
-  <meta name="description" content="1株優待、保有株、固定費、安く買う情報を見やすく整理する静的サイトです。">
+  <meta name="description" content="1株優待、毎月の支払い、持ってる株メモを日常言葉で見られる静的サイトです。">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="site-header">
     <a class="brand" href="#home" aria-label="トップへ戻る">
       <span class="brand-mark">Y</span>
-      <strong>優待と暮らしのメモ</strong>
+      <strong><span>Y</span><b>優待と暮らしのメモ</b></strong>
     </a>
-    <button class="menu-button" type="button" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
+    <details class="site-menu">
+      <summary class="menu-button" aria-label="メニュー"><span></span><span></span><span></span></summary>
+      <nav class="menu-panel" aria-label="サイト内メニュー">
+        <a href="#home">ホーム</a>
+        <a href="#yutai">1株優待</a>
+        <a href="#costs">毎月の支払い</a>
+        <a href="#holdings">持ってる株メモ</a>
+        <a href="#concept">このサイトについて</a>
+      </nav>
+    </details>
   </header>
 
   <main id="app" class="app" aria-live="polite">
