@@ -1078,3 +1078,183 @@ body { background: linear-gradient(180deg, #fff 0%, var(--bg) 100%); }
   .yutai-controls { grid-template-columns: minmax(0, 1fr); }
   .compact-filter-row { grid-column: auto; }
 }
+
+/* Compact accordion system shared by yutai / holdings / costs */
+.page-holdings,
+.page-costs,
+.page-concept,
+.page-deals {
+  gap: 10px;
+  padding-top: 0;
+}
+.page-holdings .page-title h1,
+.page-costs .page-title h1,
+.page-concept .page-title h1,
+.page-deals .page-title h1 {
+  font-size: clamp(1.75rem, 8vw, 3rem);
+  letter-spacing: -0.055em;
+}
+.page-holdings .page-title p,
+.page-costs .page-title p,
+.page-concept .page-title p,
+.page-deals .page-title p {
+  margin-top: 6px;
+  font-size: clamp(.86rem, 3.4vw, 1rem);
+  line-height: 1.45;
+}
+.page-holdings .back-link,
+.page-costs .back-link,
+.page-concept .back-link,
+.page-deals .back-link {
+  justify-self: start;
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--page-accent, var(--blue));
+  box-shadow: none;
+  font-size: .86rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+.page-holdings .controls,
+.page-costs .controls,
+.page-deals .controls { gap: 8px; }
+.page-holdings .row-controls,
+.page-costs .row-controls {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+.page-holdings .pill-control,
+.page-costs .pill-control {
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 0 11px;
+  border-width: 1px;
+  font-size: .84rem;
+}
+.page-holdings .inline-switch {
+  flex: 0 0 auto;
+  min-height: 34px;
+  gap: 8px;
+  font-size: .84rem;
+  font-weight: 800;
+}
+.page-holdings .inline-switch i { width: 42px; height: 24px; }
+.page-holdings .inline-switch i::before { width: 18px; height: 18px; }
+.page-holdings .inline-switch input:checked + i::before { transform: translateX(18px); }
+.page-holdings .card-list,
+.page-costs .card-list { gap: 8px; }
+.compact-card {
+  padding: 0;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(17, 24, 39, .04);
+}
+.compact-card::before { height: 0; }
+.compact-card summary {
+  list-style: none;
+  cursor: pointer;
+}
+.compact-card summary::-webkit-details-marker { display: none; }
+.compact-summary {
+  display: grid;
+  gap: 5px;
+  padding: 10px 11px 9px;
+}
+.compact-head-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 7px;
+}
+.cost-card .compact-head-line { grid-template-columns: minmax(0, 1fr) auto; }
+.compact-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text);
+  font-size: 1.02rem;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+}
+.compact-card .code-badge {
+  min-width: auto;
+  min-height: 22px;
+  padding: 0 7px;
+  border-radius: 6px;
+  font-size: .74rem;
+}
+.compact-main-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: #252a31;
+  font-size: .88rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.compact-meta-line {
+  color: #526071;
+  font-size: .8rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.compact-card[open] .expand-arrow,
+.yutai-compact-card[open] .expand-arrow { transform: rotate(225deg); }
+.compact-detail {
+  border-top: 1px solid var(--line);
+  padding: 8px 11px 10px;
+  display: grid;
+  gap: 8px;
+}
+.detail-list { display: grid; gap: 5px; }
+.detail-list div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #5b6470;
+  font-size: .8rem;
+  font-weight: 700;
+}
+.detail-list strong {
+  color: #20242a;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+.compact-detail .official-link { font-size: .9rem; color: var(--page-accent, var(--blue)); }
+.compact-detail .description,
+.compact-detail .memo {
+  margin: 0;
+  text-align: left;
+  font-size: .84rem;
+  line-height: 1.5;
+}
+.page-holdings .filter-chip.is-active { border-color: var(--orange); background: var(--orange-soft); color: #9b5d00; }
+.page-costs .saving-text { color: var(--green-dark); }
+.compact-task-lines {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+  gap: 6px;
+}
+.compact-task-lines div { grid-template-columns: 84px minmax(0, 1fr); gap: 8px; }
+.compact-task-lines span { padding: 5px 7px; font-size: .78rem; }
+.compact-task-lines p { font-size: .84rem; line-height: 1.45; }
+.compact-detail .ad-note { margin: 0; font-size: .76rem; }
+.compact-detail .cost-link { margin-top: 0; }
+.page-concept .concept-card {
+  padding: 22px 18px;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(17, 24, 39, .045);
+}
+.page-concept .concept-card::before { height: 4px; }
+.page-concept .concept-card p {
+  font-size: clamp(1rem, 4vw, 1.15rem);
+  line-height: 1.85;
+}
+@media (max-width: 430px) {
+  .compact-task-lines div { grid-template-columns: 1fr; }
+}

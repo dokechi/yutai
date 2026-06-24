@@ -37,7 +37,7 @@ const pages = {
   },
   holdings: {
     title: '持ってる株メモ',
-    description: '実際に見ている株を、条件つきでメモしています。',
+    description: '実際に見ている株をメモしています。',
     accent: 'orange',
   },
   concept: {
@@ -268,24 +268,28 @@ function renderHoldings() {
 }
 
 function renderHoldingCard(item) {
+  const detailId = `holding-detail-${escapeAttribute(text(item.code) || text(item.name))}`;
   return `
-    <article class="item-card holding-card">
-      <div class="holding-head">
-        <span class="code-badge orange">${escapeHtml(text(item.code))}</span>
-        <div class="holding-title-block">
-          <h2 class="item-title">${escapeHtml(text(item.name))}</h2>
-          ${item.perk ? `<p class="perk-title">${escapeHtml(text(item.perk))}</p>` : '<p class="perk-title">優待内容を確認</p>'}
+    <details class="item-card compact-card holding-card">
+      <summary class="compact-summary" aria-controls="${detailId}">
+        <span class="compact-head-line">
+          <span class="compact-title">${escapeHtml(text(item.name))}</span>
+          <span class="code-badge orange">${escapeHtml(text(item.code))}</span>
+          <span class="expand-arrow" aria-hidden="true"></span>
+        </span>
+        <span class="compact-main-text">${escapeHtml(text(item.perk) || '優待内容を確認')}</span>
+        <span class="compact-meta-line">${escapeHtml(formatShares(item.ownedShares) || '-')}｜取得 ${escapeHtml(formatYen(item.avgAcquisitionPriceYen) || '-')}｜現在 ${escapeHtml(formatYen(item.currentPriceYen) || '-')}</span>
+      </summary>
+      <div class="compact-detail" id="${detailId}">
+        <div class="detail-list">
+          <div><span>優待内容</span><strong>${escapeHtml(text(item.perk) || '優待内容を確認')}</strong></div>
+          <div><span>権利月</span><strong>${escapeHtml(text(item.recordMonth) || '-')}</strong></div>
+          ${item.lastChecked ? `<div><span>確認日</span><strong>${escapeHtml(formatShortDate(item.lastChecked))}</strong></div>` : ''}
         </div>
-
+        ${item.officialUrl ? `<a class="official-link" href="${escapeAttribute(item.officialUrl)}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> 会社ページ</a>` : ''}
+        ${item.memoPublic ? `<p class="memo">${escapeHtml(text(item.memoPublic))}</p>` : ''}
       </div>
-      <div class="meta-grid four soft-orange">
-        ${renderMeta('取得単価', formatYen(item.avgAcquisitionPriceYen))}
-        ${renderMeta('現在値', formatYen(item.currentPriceYen))}
-        ${renderMeta('保有株数', formatShares(item.ownedShares))}
-        ${renderMeta('いつまでに持つ？', item.recordMonth || '-')}
-      </div>
-      ${item.memoPublic ? `<p class="description">${escapeHtml(text(item.memoPublic))}</p>` : '<p class="description">見ている内容を短くメモ。</p>'}
-    </article>
+    </details>
   `;
 }
 
@@ -308,26 +312,30 @@ function renderCosts() {
 }
 
 function renderCostCard(item, index) {
-  const steps = normalizeArray(item.steps);
+  const steps = getCostSteps(item);
+  const detailId = `cost-detail-${escapeAttribute(text(item.id) || text(item.title) || index)}`;
   return `
-    <article class="item-card cost-card">
-      <div class="cost-head">
-        <span class="number-badge">${String(index + 1).padStart(2, '0')}</span>
-        <h2 class="item-title">${escapeHtml(text(item.title || item.category))}</h2>
-        <span class="category-badge">${escapeHtml(text(item.category))}</span>
+    <details class="item-card compact-card cost-card">
+      <summary class="compact-summary" aria-controls="${detailId}">
+        <span class="compact-head-line">
+          <span class="compact-title">${escapeHtml(text(item.title || item.category))}</span>
+          <span class="expand-arrow" aria-hidden="true"></span>
+        </span>
+        <span class="compact-main-text saving-text">${escapeHtml(formatMonthlySaving(item.saveMinYen, item.saveMaxYen) || '-')}</span>
+        <span class="compact-meta-line">${escapeHtml(text(item.category) || '毎月の支払い')}｜${toBoolean(item.isAd) ? '広告リンクあり' : item.lastChecked ? `確認 ${escapeHtml(formatShortDate(item.lastChecked))}` : '確認中'}</span>
+      </summary>
+      <div class="compact-detail" id="${detailId}">
+        ${item.description ? `<p class="description">${escapeHtml(text(item.description))}</p>` : ''}
+        <div class="task-lines compact-task-lines">
+          ${steps[0] ? `<div><span>見るところ</span><p>${escapeHtml(steps[0])}</p></div>` : ''}
+          ${steps[1] ? `<div><span>次にやること</span><p>${escapeHtml(steps[1])}</p></div>` : ''}
+          ${steps[2] ? `<div><span>次にやること</span><p>${escapeHtml(steps[2])}</p></div>` : ''}
+        </div>
+        ${item.targetUrl ? `<a class="official-link cost-link" href="${escapeAttribute(item.targetUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(text(item.ctaLabel) || '詳しく見る')}</a>` : ''}
+        ${toBoolean(item.isAd) ? '<p class="ad-note">広告リンクを含みます</p>' : ''}
+        ${item.memoPublic ? `<p class="memo">${escapeHtml(text(item.memoPublic).replace('※広告リンクを含みます。', '').trim())}</p>` : ''}
       </div>
-      <div class="saving-block">
-        <span>いくら浮く？</span>
-        <strong>${escapeHtml(formatMonthlySaving(item.saveMinYen, item.saveMaxYen))}</strong>
-      </div>
-      <div class="task-lines">
-        <div><span>見るところ</span><p>${escapeHtml(steps[0] || text(item.description || item.memoPublic))}</p></div>
-        <div><span>次にやること</span><p>${escapeHtml(steps[1] || steps[0] || '今の請求額を確認する')}</p></div>
-      </div>
-      ${toBoolean(item.isAd) ? '<p class="ad-note">広告リンクを含みます</p>' : ''}
-      ${item.targetUrl ? `<a class="official-link cost-link" href="${escapeAttribute(item.targetUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(text(item.ctaLabel) || '会社ページを見る')}</a>` : ''}
-      ${item.memoPublic ? `<p class="hint">${escapeHtml(text(item.memoPublic).replace('※広告リンクを含みます。', '').trim())}</p>` : ''}
-    </article>
+    </details>
   `;
 }
 
@@ -482,6 +490,12 @@ function formatMonthlySaving(minYen, maxYen) {
 
 function normalizeArray(value) {
   return Array.isArray(value) ? value : [];
+}
+
+function getCostSteps(item) {
+  const steps = normalizeArray(item.steps);
+  [item.steps_1, item.steps_2, item.steps_3].map(text).filter(Boolean).forEach((step) => steps.push(step));
+  return steps;
 }
 
 function text(value) {
