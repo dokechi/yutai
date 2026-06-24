@@ -888,3 +888,193 @@ body { background: linear-gradient(180deg, #fff 0%, var(--bg) 100%); }
   .task-lines span { justify-content: flex-start; }
   .switch-row { grid-template-columns: 1fr; }
 }
+
+/* Compact mobile-first 1株優待 page */
+.page-yutai {
+  gap: 10px;
+  padding-top: 0;
+}
+.page-yutai .page-title h1 {
+  font-size: clamp(1.75rem, 8vw, 3rem);
+  letter-spacing: -0.055em;
+}
+.page-yutai .page-title p {
+  margin-top: 6px;
+  font-size: clamp(.86rem, 3.4vw, 1rem);
+  line-height: 1.45;
+}
+.page-yutai .back-link {
+  justify-self: start;
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  box-shadow: none;
+  font-size: .86rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+.yutai-controls {
+  gap: 8px;
+}
+.yutai-controls .search-field {
+  min-height: 40px;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+.yutai-controls .search-field input {
+  font-size: .92rem;
+}
+.yutai-controls .icon { margin-right: 8px; }
+.yutai-controls .search-icon {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+.yutai-controls .search-icon::after {
+  width: 8px;
+  height: 2px;
+  transform: translate(11px, 12px) rotate(45deg);
+}
+.compact-filter-row {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+.compact-filter-row::-webkit-scrollbar { display: none; }
+.select-chip,
+.filter-chip {
+  flex: 0 0 auto;
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: #fff;
+  color: #28303a;
+  font-size: .84rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.select-chip {
+  position: relative;
+  padding: 0 10px 0 12px;
+}
+.select-chip select {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  appearance: none;
+  padding-right: 15px;
+  color: inherit;
+  font: inherit;
+}
+.select-chip .chevron {
+  width: 7px;
+  height: 7px;
+  border-width: 2px;
+  margin-left: -10px;
+}
+.filter-chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.filter-chip span { padding: 7px 11px; }
+.filter-chip.is-active {
+  border-color: var(--blue);
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+.page-yutai .card-list { gap: 8px; }
+.yutai-compact-card {
+  padding: 0;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(17, 24, 39, .04);
+}
+.yutai-compact-card::before { height: 0; }
+.yutai-compact-card summary {
+  list-style: none;
+  cursor: pointer;
+}
+.yutai-compact-card summary::-webkit-details-marker { display: none; }
+.yutai-summary {
+  display: grid;
+  gap: 5px;
+  padding: 10px 11px 9px;
+}
+.yutai-line-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 7px;
+}
+.yutai-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1.02rem;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+}
+.yutai-compact-card .code-badge {
+  min-height: 22px;
+  padding: 0 7px;
+  border-radius: 6px;
+  font-size: .74rem;
+}
+.expand-arrow {
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #44505f;
+  border-bottom: 2px solid #44505f;
+  transform: rotate(45deg);
+  transition: transform 120ms ease;
+}
+.yutai-compact-card[open] .expand-arrow { transform: rotate(225deg); }
+.yutai-perk {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: #252a31;
+  font-size: .88rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.yutai-meta-line {
+  color: #526071;
+  font-size: .8rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.yutai-detail {
+  border-top: 1px solid var(--line);
+  padding: 8px 11px 10px;
+  display: grid;
+  gap: 7px;
+}
+.yutai-detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #5b6470;
+  font-size: .8rem;
+  font-weight: 700;
+}
+.yutai-detail .official-link {
+  font-size: .9rem;
+}
+.yutai-detail .memo {
+  text-align: left;
+  font-size: .84rem;
+  line-height: 1.45;
+}
+@media (min-width: 760px) {
+  .yutai-controls { grid-template-columns: minmax(0, 1fr); }
+  .compact-filter-row { grid-column: auto; }
+}

@@ -159,7 +159,7 @@ function renderPageShell(pageName, controlsHtml, contentHtml, options = {}) {
         <h1>${page.title}</h1>
         <p>${page.description}</p>
       </div>
-      <a class="back-link ${options.outlineBack ? 'is-outline' : ''}" href="#home">${options.backIcon ? '<span aria-hidden="true">←</span>' : ''}トップへ</a>
+      <a class="back-link ${options.outlineBack ? 'is-outline' : ''}" href="#home"><span aria-hidden="true">←</span> ホーム</a>
       ${controlsHtml || ''}
       ${contentHtml}
     </section>
@@ -189,13 +189,13 @@ function renderYutai() {
     'yutai',
     `<form class="controls yutai-controls" id="yutai-filter">
       <label class="search-field"><span class="icon search-icon" aria-hidden="true"></span><input type="search" name="query" value="${escapeAttribute(state.yutaiQuery)}" placeholder="銘柄名・コード・優待内容で検索" aria-label="1株優待を検索"></label>
-      <label class="select-field"><span class="icon calendar-icon" aria-hidden="true"></span><select name="month" aria-label="いつまでに持つ？で絞り込み">
-        <option value="all">すべての月</option>
-        ${months.map((month) => `<option value="${escapeAttribute(month)}" ${month === state.yutaiMonth ? 'selected' : ''}>${escapeHtml(month)}</option>`).join('')}
-      </select><span class="chevron" aria-hidden="true"></span></label>
-      <div class="toggle-panel">
-        ${renderSwitch('hideOld', '古い情報を隠す', state.yutaiHideOld)}
-        ${renderSwitch('officialOnly', '公式確認済だけ', state.yutaiOfficialOnly)}
+      <div class="compact-filter-row">
+        <label class="select-chip"><select name="month" aria-label="いつまでに持つ？で絞り込み">
+          <option value="all">すべての月</option>
+          ${months.map((month) => `<option value="${escapeAttribute(month)}" ${month === state.yutaiMonth ? 'selected' : ''}>${escapeHtml(month)}</option>`).join('')}
+        </select><span class="chevron" aria-hidden="true"></span></label>
+        ${renderChipSwitch('officialOnly', '公式のみ', state.yutaiOfficialOnly)}
+        ${renderChipSwitch('hideOld', '古い情報OFF', state.yutaiHideOld)}
       </div>
     </form>`,
     `<div class="card-list">${filteredItems.length ? filteredItems.map(renderYutaiCard).join('') : renderEmpty('条件に合う1株優待がありません。')}</div>`,
@@ -215,24 +215,25 @@ function onYutaiFilter(event) {
 
 function renderYutaiCard(item) {
   const officialStatus = item.officialUrl ? '確認済' : '未確認';
+  const detailId = `yutai-detail-${escapeAttribute(text(item.code) || text(item.name))}`;
+  const detailText = [item.holdingPeriod, item.memoPublic].map(text).filter(Boolean).join(' / ');
   return `
-    <article class="item-card yutai-card">
-      <div class="item-head compact">
-        <h2 class="item-title">${escapeHtml(text(item.name))}</h2>
-        <span class="code-badge">${escapeHtml(text(item.code))}</span>
+    <details class="item-card yutai-card yutai-compact-card">
+      <summary class="yutai-summary" aria-controls="${detailId}">
+        <span class="yutai-line yutai-line-head">
+          <span class="yutai-name">${escapeHtml(text(item.name))}</span>
+          <span class="code-badge">${escapeHtml(text(item.code))}</span>
+          <span class="expand-arrow" aria-hidden="true"></span>
+        </span>
+        <span class="yutai-perk">${escapeHtml(text(item.perk))}</span>
+        <span class="yutai-meta-line">${escapeHtml(text(item.recordMonth) || '-')}｜${escapeHtml(formatYen(item.needMoneyYen) || '-')}｜確認 ${escapeHtml(formatShortDate(item.lastChecked))}</span>
+      </summary>
+      <div class="yutai-detail" id="${detailId}">
+        <div class="yutai-detail-row"><span>公式</span><strong>${escapeHtml(officialStatus)}</strong></div>
+        ${item.officialUrl ? `<a class="official-link" href="${escapeAttribute(item.officialUrl)}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> 会社ページを見る</a>` : ''}
+        ${detailText ? `<p class="memo">${escapeHtml(detailText)}</p>` : ''}
       </div>
-      <p class="description">${escapeHtml(text(item.perk))}</p>
-      <div class="meta-grid four">
-        ${renderMeta('いつまでに持つ？', item.recordMonth, 'blue')}
-        ${renderMeta('いくらいる？', formatYen(item.needMoneyYen), 'blue')}
-        ${renderMeta('確認した日', item.lastChecked, 'blue')}
-        ${renderMeta('会社ページ', officialStatus, 'blue')}
-      </div>
-      <div class="card-foot">
-        ${item.officialUrl ? `<a class="official-link" href="${escapeAttribute(item.officialUrl)}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> 会社ページを見る</a>` : '<span></span>'}
-        ${item.memoPublic ? `<p class="memo">${escapeHtml(text(item.memoPublic))}</p>` : ''}
-      </div>
-    </article>
+    </details>
   `;
 }
 
@@ -413,6 +414,10 @@ function renderSwitch(name, label, checked) {
   return `<label class="switch-field"><span>${label}</span>${renderSwitchOnly(name, checked)}</label>`;
 }
 
+function renderChipSwitch(name, label, checked) {
+  return `<label class="filter-chip ${checked ? 'is-active' : ''}"><input type="checkbox" name="${name}" ${checked ? 'checked' : ''}><span>${label}</span></label>`;
+}
+
 function renderSwitchOnly(name, checked) {
   return `<input type="checkbox" name="${name}" ${checked ? 'checked' : ''}><i aria-hidden="true"></i>`;
 }
@@ -442,6 +447,13 @@ function toBoolean(value) {
   if (typeof value === 'boolean') return value;
   const valueText = text(value).trim().toLowerCase();
   return ['true', '1', 'yes', 'はい'].includes(valueText);
+}
+
+function formatShortDate(value) {
+  const valueText = text(value);
+  const match = valueText.match(/(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
+  if (match) return `${Number(match[2])}/${Number(match[3])}`;
+  return valueText || '-';
 }
 
 function formatYen(value) {
